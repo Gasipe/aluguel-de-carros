@@ -4,6 +4,8 @@ import dto.VeiculoResponseDTO;
 import dto.VeiculoUpdateDTO;
 import entity.Veiculo;
 
+import java.time.LocalDateTime;
+
 public class VeiculoMapper {
 
     private VeiculoMapper() {}
@@ -37,5 +39,6 @@ public class VeiculoMapper {
         veiculo.setAno(dto.getAno());
         veiculo.setCor(dto.getCor());
         veiculo.setCategoria(dto.getCategoria());
+        veiculo.setDataAtualizacao(LocalDateTime.now());
     }
 }
