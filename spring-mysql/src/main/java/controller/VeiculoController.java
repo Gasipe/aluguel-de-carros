@@ -1,9 +1,14 @@
 package controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import dto.VeiculoRequestDTO;
+import dto.VeiculoResponseDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import service.VeiculoService;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/veiculos")
@@ -16,5 +21,23 @@ public class VeiculoController {
         this.service = service;
     }
 
-    
+    @GetMapping
+    public ResponseEntity<List<VeiculoResponseDTO>> listarVeiculos() {
+        List<VeiculoResponseDTO> response = service.listarTodos();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<VeiculoResponseDTO> salvarVeiculo(@RequestBody VeiculoRequestDTO request) {
+        VeiculoResponseDTO response = service.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarVeiculo(@PathVariable UUID id) {
+        service.deletarVeiculo(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
