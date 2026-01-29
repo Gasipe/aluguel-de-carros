@@ -10,4 +10,4 @@ public class SpringMysqlApplication {
 		SpringApplication.run(SpringMysqlApplication.class, args);
 	}
 
-}
+}		
